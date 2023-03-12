@@ -28,13 +28,15 @@
                 <label for="stretch-align-self-@ID">stretch</label>
             </div>
         </div>
+        <h5 style="display: inline-block;">order</h5>
+        <input type="number" id="order-@ID" name="order-@ID" @onchange='e => updateStyling("order", e.Value.ToString())'>
+        <h5 style="display: inline-block; margin-left: 1em;">flex-grow</h5>
+        <input type="number" id="flex-grow-@ID" name="flex-grow-@ID" @onchange='e => updateStyling("flex-grow", e.Value.ToString())'>
+        <h5 style="display: inline-block; margin-left: 1em;">flex-shrink</h5>
+        <input type="number" id="flex-shrink-@ID" name="flex-shrink-@ID" @onchange='e => updateStyling("flex-shrink", e.Value.ToString())'>
     </div>
 </div>
 @code {
-    private Dictionary<string, List<string>> flexboxChild = new Dictionary<string, List<string>>
-    {
-        { "align-self", new List<string> {"auto", "flex-start", "flex-end", "center", "baseline", "stretch"} }
-    };
     [Parameter]
     public int ID { get; set; }
     [Parameter]
@@ -68,7 +70,7 @@
         }
 
 
-        KeyValuePair<int, string> kvp = new KeyValuePair<int, string> ( ID, Styling );
+        KeyValuePair<int, string> kvp = new KeyValuePair<int, string>(ID, Styling);
         return StylingChanged.InvokeAsync(kvp);
     }
 }

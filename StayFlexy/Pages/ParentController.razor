@@ -20,6 +20,21 @@
                 <label for="column-reverse-flex-direction">column-reverse</label>
             </div>
         </div>
+        <h5>flex-wrap</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="nowrap-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "nowrap")'>
+                <label for="nowrap-flex-wrap">nowrap</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="wrap-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "wrap")'>
+                <label for="wrap-flex-wrap">wrap</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="wrap-reverse-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "wrap-reverse")'>
+                <label for="wrap-reverse-flex-wrap">wrap-reverse</label>
+            </div>
+        </div>
     </div>
 </div>
 @code {

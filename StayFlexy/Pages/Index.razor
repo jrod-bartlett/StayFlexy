@@ -22,11 +22,13 @@
             <button class="removeBtn" @onclick="removeChildElement">Remove Element</button>
         </div>
         <ParentController @bind-Styling="@parentStyling"></ParentController>
-        @for (int i = 1; i <= childrenStyling.Count; i++)
-        {
-            int temp = i;
-            <ChildController @key="temp" StylingChanged="(val) => {updateChildStyling(val);}" Styling="@childrenStyling[temp]" ID="temp"></ChildController>
-        }
+        <div id="childrenControllers">
+            @for (int i = 1; i <= childrenStyling.Count; i++)
+            {
+                int temp = i;
+                <ChildController @key="temp" StylingChanged="(val) => {updateChildStyling(val);}" Styling="@childrenStyling[temp]" ID="temp"></ChildController>
+            }
+        </div>
     </div>
 </div>
 
