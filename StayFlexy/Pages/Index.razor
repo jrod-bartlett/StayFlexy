@@ -4,23 +4,121 @@
 <PageTitle>Display: Flexbox</PageTitle>
 
 <div id="flexboxDemo">
-    <div class="section">
-        <h1>Section 1</h1>
+    <div class="section elementsContainer">
+        <small>Flexbox Parent</small>
+        <div class="flexboxParent" style="@parentStyling">
+            @for (int child = 1; child <= childrenStyling.Count; child++)
+            {
+                <div class="flexboxChild" id="@child" style="@childrenStyling[child]">
+                    <p>flex element @child</p>
+                </div>
+            }
+        </div>
     </div>
-    <div class="section">
-        <h1>Section 2</h1>
+    <div class="section userInputs">
+        <div class="addRemoveBtns">
+            <button class="addBtn" @onclick="addChildElement">Add New Child</button>
+            <button class="removeBtn" @onclick="removeChildElement">Remove Element</button>
+        </div>
+        <div id="parentController">
+            @foreach (string input in flexboxParent.Keys)
+            {
+                <div class="controlItem">
+                    <h5>@input</h5>
+                    <div style="display: flex; flex-wrap: wrap;">
+                        @foreach (string option in flexboxParent[input])
+                        {
+                            string id = option + input;
+                            <div stlye="margin-left: 1em;">
+                                <input type="radio" id="@id" name="@input" @onclick='() => updateParentStyling(input, option)'>
+                                <label for="@id">@option</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        @for (int child = 1; child <= flexboxChild.Count; child++)
+        {
+            <div class="childController">
+                @foreach (string input in flexboxParent.Keys)
+                {
+                        <div class="controlItem">
+                            <h5>@input</h5>
+                            <div style="display: flex; flex-wrap: wrap;">
+                            @foreach (string option in flexboxParent[input])
+                            {
+                                string id = option + input;
+                                        <div stlye="margin-left: 1em;">
+                                            <input type="radio" id="@id" name="@input" @onclick='() => updateParentStyling(input, option)'>
+                                            <label for="@id">@option</label>
+                                        </div>
+                            }
+                            </div>
+                        </div>
+                }
+            </div>
+
+        }
     </div>
 </div>
 
 @code {
-    Dictionary<string, List<string>> flexboxParentCombos = new Dictionary<string, List<string>>
+    private string parentStyling = "";
+    private Dictionary<int, string> childrenStyling = new Dictionary<int, string>
+    {
+        { 1, "" }
+    };
+
+    private Dictionary<string, List<string>> flexboxParentCombos = new Dictionary<string, List<string>>
     {
         { "flex-flow", new List<string> { "flex-direction", "flex-wrap"} }
     };
-    Dictionary<string, List<string>> flexboxParent = new Dictionary<string, List<string>>
+    private Dictionary<string, List<string>> flexboxParent = new Dictionary<string, List<string>>
     {
         { "flex-direction", new List<string> {"row", "row-reverse", "column", "column-reverse"} },
         { "flex-wrap", new List<string> { "nowrap", "wrap", "wrap-reverse"} },
         { "justify-content", new List<string> { "flex-start", "flex-end", "start", "end", "left", "right", "center", "space-between", "space-around", "space-evenly"} }
     };
+    private Dictionary<string, List<string>> flexboxChild = new Dictionary<string, List<string>>
+    {
+        { "align-self", new List<string> {"auto", "flex-start", "flex-end", "center", "baseline", "stretch"} }
+    };
+
+    private void updateParentStyling(string input, string option)
+    {
+        bool addedStyle = false;
+        string[] styles = parentStyling.Split(";");
+        parentStyling = "";
+        foreach (string style in styles)
+        {
+            if (style.Contains(input))
+            {
+                parentStyling += input + ":" + option + ";";
+                addedStyle = true;
+            }
+            else
+            {
+                if (!style.Equals(""))
+                {
+                    parentStyling += style + ";";
+                }
+            }
+        }
+        if (addedStyle == false)
+        {
+            parentStyling += input + ":" + option + ";";
+        }
+    }
+
+    private void addChildElement()
+    {
+        childrenStyling.Add(childrenStyling.Count + 1, "");
+    }
+
+    private void removeChildElement()
+    {
+        int lastElementKey = childrenStyling.Count;
+        childrenStyling.Remove(lastElementKey);
+    }
 }
