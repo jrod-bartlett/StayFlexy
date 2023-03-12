@@ -9,8 +9,9 @@
         <div class="flexboxParent" style="@parentStyling">
             @for (int child = 1; child <= childrenStyling.Count; child++)
             {
-                <div class="flexboxChild" id="@child" style="@childrenStyling[child]">
-                    <p>flex element @child</p>
+                int temp = child;
+                <div class="flexboxChild" id="@temp" style="@childrenStyling[temp]">
+                    <p>flex element @temp</p>
                 </div>
             }
         </div>
@@ -21,7 +22,11 @@
             <button class="removeBtn" @onclick="removeChildElement">Remove Element</button>
         </div>
         <ParentController @bind-Styling="@parentStyling"></ParentController>
-        
+        @for (int i = 1; i <= childrenStyling.Count; i++)
+        {
+            int temp = i;
+            <ChildController @key="temp" StylingChanged="(val) => {updateChildStyling(val);}" Styling="@childrenStyling[temp]" ID="temp"></ChildController>
+        }
     </div>
 </div>
 
@@ -35,14 +40,7 @@
     private Dictionary<string, List<string>> flexboxParentCombos = new Dictionary<string, List<string>>
     {
         { "flex-flow", new List<string> { "flex-direction", "flex-wrap"} }
-    };
-
-    private Dictionary<string, List<string>> flexboxChild = new Dictionary<string, List<string>>
-    {
-        { "align-self", new List<string> {"auto", "flex-start", "flex-end", "center", "baseline", "stretch"} }
-    };
-
-    
+    };  
 
     private void addChildElement()
     {
@@ -53,5 +51,19 @@
     {
         int lastElementKey = childrenStyling.Count;
         childrenStyling.Remove(lastElementKey);
+    }
+
+    private void updateChildStyling(int id, string newStyling)
+    {
+        childrenStyling[id] = newStyling;
+        Console.WriteLine(childrenStyling.ToString());
+    }
+
+    private void updateChildStyling(KeyValuePair<int, string> newStyle)
+    {
+        childrenStyling.Remove(newStyle.Key);
+        childrenStyling.Add(newStyle.Key, newStyle.Value);
+        //childrenStyling[id] = newStyling;
+        Console.WriteLine(childrenStyling.ToString());
     }
 }

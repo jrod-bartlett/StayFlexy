@@ -65,19 +65,4 @@
     color: white;
 }
 
-.controlItem {
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 0.5em 1em;
-    padding: 0.25em 0.5em;
-    background-color: lightblue;
-}
-
-.controlItem>div>div {
-    margin-left: 1em;
-}
-
-.controlItem > div > div label:hover {
-    cursor: pointer;
-}
 

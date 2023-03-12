@@ -1,21 +1,22 @@
 ﻿<div id="parentController">
     <div class="controlItem">
+        <small style="float: right; font-weight: bold;">Parent Element</small>
         <h5>flex-direction</h5>
         <div style="display: flex; flex-wrap: wrap;">
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="row-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "row")'>
+                <input type="radio" id="row-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "row")'>
                 <label for="row-flex-direction">row</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="row-reverse-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "row-reverse")'>
+                <input type="radio" id="row-reverse-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "row-reverse")'>
                 <label for="row-reverse-flex-direction">row-reverse</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="column-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "column")'>
+                <input type="radio" id="column-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "column")'>
                 <label for="column-flex-direction">column</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="column-reverse-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "column-reverse")'>
+                <input type="radio" id="column-reverse-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "column-reverse")'>
                 <label for="column-reverse-flex-direction">column-reverse</label>
             </div>
         </div>
@@ -27,14 +28,14 @@
     [Parameter]
     public EventCallback<string> StylingChanged { get; set; }
 
-    private Dictionary<string, List<string>> flexboxParent = new Dictionary<string, List<string>>
-    {
-        { "flex-direction", new List<string> {"row", "row-reverse", "column", "column-reverse"} },
-        { "flex-wrap", new List<string> { "nowrap", "wrap", "wrap-reverse"} },
-        { "justify-content", new List<string> { "flex-start", "flex-end", "start", "end", "left", "right", "center", "space-between", "space-around", "space-evenly"} }
-    };
+    //private Dictionary<string, List<string>> flexboxParent = new Dictionary<string, List<string>>
+    //{
+    //    { "flex-direction", new List<string> {"row", "row-reverse", "column", "column-reverse"} },
+    //    { "flex-wrap", new List<string> { "nowrap", "wrap", "wrap-reverse"} },
+    //    { "justify-content", new List<string> { "flex-start", "flex-end", "start", "end", "left", "right", "center", "space-between", "space-around", "space-evenly"} }
+    //};
 
-    private Task updateParentStyling(string input, string option)
+    private Task updateStyling(string input, string option)
     {
         bool addedStyle = false;
         string[] styles = Styling.Split(";");

@@ -1,0 +1,74 @@
+﻿<div class="childController">
+    <div class="controlItem">
+        <small style="float: right; font-weight: bold;">Element @ID</small>
+        <h5>align-self</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="auto-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "auto")'>
+                <label for="auto-align-self-@ID">auto</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-start-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "flex-start")'>
+                <label for="flex-start-align-self-@ID">flex-start</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-end-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "flex-end")'>
+                <label for="flex-end-align-self-@ID">flex-end</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="center-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "center")'>
+                <label for="center-align-self-@ID">center</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="baseline-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "baseline")'>
+                <label for="baseline-align-self-@ID">baseline</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="stretch-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "stretch")'>
+                <label for="stretch-align-self-@ID">stretch</label>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    private Dictionary<string, List<string>> flexboxChild = new Dictionary<string, List<string>>
+    {
+        { "align-self", new List<string> {"auto", "flex-start", "flex-end", "center", "baseline", "stretch"} }
+    };
+    [Parameter]
+    public int ID { get; set; }
+    [Parameter]
+    public string Styling { get; set; }
+    [Parameter]
+    public EventCallback<KeyValuePair<int, string>> StylingChanged { get; set; }
+
+    private Task updateStyling(string input, string option)
+    {
+        bool addedStyle = false;
+        string[] styles = Styling.Split(";");
+        Styling = "";
+        foreach (string style in styles)
+        {
+            if (style.Contains(input))
+            {
+                Styling += input + ":" + option + ";";
+                addedStyle = true;
+            }
+            else
+            {
+                if (!style.Equals(""))
+                {
+                    Styling += style + ";";
+                }
+            }
+        }
+        if (addedStyle == false)
+        {
+            Styling += input + ":" + option + ";";
+        }
+
+
+        KeyValuePair<int, string> kvp = new KeyValuePair<int, string> ( ID, Styling );
+        return StylingChanged.InvokeAsync(kvp);
+    }
+}
