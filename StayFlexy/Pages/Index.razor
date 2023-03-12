@@ -1,10 +1,26 @@
 ﻿@page "/"
 @page "/StayFlexy"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Display: Flexbox</PageTitle>
 
-<h1>Hello, world! Hi!</h1>
+<div id="flexboxDemo">
+    <div class="section">
+        <h1>Section 1</h1>
+    </div>
+    <div class="section">
+        <h1>Section 2</h1>
+    </div>
+</div>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+    Dictionary<string, List<string>> flexboxParentCombos = new Dictionary<string, List<string>>
+    {
+        { "flex-flow", new List<string> { "flex-direction", "flex-wrap"} }
+    };
+    Dictionary<string, List<string>> flexboxParent = new Dictionary<string, List<string>>
+    {
+        { "flex-direction", new List<string> {"row", "row-reverse", "column", "column-reverse"} },
+        { "flex-wrap", new List<string> { "nowrap", "wrap", "wrap-reverse"} },
+        { "justify-content", new List<string> { "flex-start", "flex-end", "start", "end", "left", "right", "center", "space-between", "space-around", "space-evenly"} }
+    };
+}

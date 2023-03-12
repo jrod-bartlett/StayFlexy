@@ -1,0 +1,15 @@
+﻿#flexboxDemo {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; 
+    justify-content: stretch;
+}
+
+.section {
+    /*align-self: stretch;
+    width: 50vh;*/
+    flex-basis: 50%;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 1em;
+}
