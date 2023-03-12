@@ -1,0 +1,64 @@
+﻿<div id="parentController">
+    <div class="controlItem">
+        <h5>flex-direction</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="row-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "row")'>
+                <label for="row-flex-direction">row</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="row-reverse-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "row-reverse")'>
+                <label for="row-reverse-flex-direction">row-reverse</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="column-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "column")'>
+                <label for="column-flex-direction">column</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="column-reverse-flex-direction" name="flex-direction" @onclick='() => updateParentStyling("flex-direction", "column-reverse")'>
+                <label for="column-reverse-flex-direction">column-reverse</label>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public string Styling { get; set; }
+    [Parameter]
+    public EventCallback<string> StylingChanged { get; set; }
+
+    private Dictionary<string, List<string>> flexboxParent = new Dictionary<string, List<string>>
+    {
+        { "flex-direction", new List<string> {"row", "row-reverse", "column", "column-reverse"} },
+        { "flex-wrap", new List<string> { "nowrap", "wrap", "wrap-reverse"} },
+        { "justify-content", new List<string> { "flex-start", "flex-end", "start", "end", "left", "right", "center", "space-between", "space-around", "space-evenly"} }
+    };
+
+    private Task updateParentStyling(string input, string option)
+    {
+        bool addedStyle = false;
+        string[] styles = Styling.Split(";");
+        Styling = "";
+        foreach (string style in styles)
+        {
+            if (style.Contains(input))
+            {
+                Styling += input + ":" + option + ";";
+                addedStyle = true;
+            }
+            else
+            {
+                if (!style.Equals(""))
+                {
+                    Styling += style + ";";
+                }
+            }
+        }
+        if (addedStyle == false)
+        {
+            Styling += input + ":" + option + ";";
+        }
+
+        return StylingChanged.InvokeAsync(Styling);
+    }
+}
