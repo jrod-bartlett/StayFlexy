@@ -22,21 +22,66 @@
                     <label for="baseline-align-self-@ID">baseline</label>
 
                     <input type="radio" id="stretch-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "stretch")'>
+
                     <label for="stretch-align-self-@ID">stretch</label>
                 </div>
 
-                <div class="form-group">
-                    <label for="order-@ID" style="display: inline-block;">order</label>
-                    <input type="number" id="order-@ID" name="order-@ID" @onchange='e => updateStyling("order", e.Value.ToString())'>
+                <div class="form-group pt-3">
 
-                    <label for="flex-grow-@ID" style="display: inline-block; margin-left: 1em;">flex-grow</label>
-                    <input type="number" id="flex-grow-@ID" name="flex-grow-@ID" @onchange='e => updateStyling("flex-grow", e.Value.ToString())'>
+                    <div class="d-inline-flex">
+                        <label for="flex-grow-@ID" class="d-flex justify-content-between" style="width:150px; padding-right:8px;">
+                            <b>flex-grow</b>
+                            <input type="number" id="flex-grow-@ID" name="flex-grow-@ID" @bind="flexGrow">
+                        </label>
 
-                    <label for="flex-shrink-@ID" style="display: inline-block; margin-left: 1em;">flex-shrink</label>
-                    <input type="number" id="flex-shrink-@ID" name="flex-shrink-@ID" @onchange='e => updateStyling("flex-shrink", e.Value.ToString())'>
+                        <label for="flex-shrink-@ID" class="d-flex justify-content-between" style="width:150px; padding-right:8px;">
+                            <b>flex-shrink</b>
+                            <input type="number" id="flex-shrink-@ID" name="flex-shrink-@ID" @bind="flexShrink">
+                        </label>
+
+                        <label for="flex-basis-@ID" class="d-flex justify-content-between" style="width:236px; padding-right:8px;">
+                            <b>flex-basis</b>
+                            <input class="@basisInputDisplay" type="number" @bind="basisValue" id="flex-basis-@ID" name="flex-basis-@ID">
+                            <select name="basisType" @onchange='e => updateBasisInput(basisValue, e.Value.ToString())'>
+                                <option value="px" selected>px</option>
+                                <option value="rem">rem</option>
+                                <option value="em">em</option>
+                                <option value="%">%</option>
+                                <option value="initial">initial</option>
+                                <option value="auto">auto</option>
+                                <option value="none">none</option>
+                            </select>
+                        </label>
+
+                    </div>
+                    <br />
+                    <div class="d-inline-flex">
+                        <span style="margin-left:110px;">&#9939;</span>
+                        <span style="margin-left:133px;">&#9939;</span>
+                        <span style="margin-left:135px;">&#9939;</span>
+                    </div>
+                    <br />
+                    <div class="d-inline-flex">
+                        <label for="flex-grow-@ID" class="d-flex justify-content-between" style="width:150px; padding-right:8px;">
+                            <b>flex</b>
+                            <input type="number" id="flex-param1-@ID" name="flex-param1-@ID" @bind="flexGrow" style="margin-left:66px">
+                            <input type="number" id="flex-param2-@ID" name="flex-param1-@ID" @bind="flexShrink" style="margin-left:102px">
+                            <input type="number" id="flex-param3-@ID" name="flex-param1-@ID" @bind="basisValue" style="margin-left:102px">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group pt-3">
+                    <label for="order-@ID" class="d-flex">
+                        <b>order</b>
+                        <input type="number" id="order-@ID" name="order-@ID" @onchange='e => updateStyling("order", e.Value.ToString())'>
+                    </label>
+
                 </div>
 
             </form>
+
+            <p>@basisType</p>
 
             <hr />
         </div>
@@ -50,6 +95,65 @@
     public string Styling { get; set; }
     [Parameter]
     public EventCallback<KeyValuePair<int, string>> StylingChanged { get; set; }
+
+    #region Flex composite property handlers
+    private int _flexGrow = 0;
+    public int flexGrow
+    {
+        get { return _flexGrow; }
+        set
+        {
+            updateStyling("flex-grow", value.ToString());
+            _flexGrow = value;
+        }
+    }
+
+    private int _flexShrink = 0;
+    public int flexShrink
+    {
+        get { return _flexShrink; }
+        set
+        {
+            updateStyling("flex-shrink", value.ToString());
+            _flexShrink = value;
+        }
+    }
+
+    public string basisType = "px";
+
+    private int _basisValue = 0;
+    public int basisValue
+    {
+        get { return _basisValue; }
+        set
+        {
+            updateBasisInput(value, basisValue.ToString());
+            _basisValue = value;
+        }
+    }
+    #endregion
+
+    public string basisInputDisplay = "d-block";
+
+    private void updateBasisInput(int enteredValue, string selectedBasisType)
+    {
+        if (selectedBasisType == "px" || selectedBasisType == "rem" || selectedBasisType == "em" || selectedBasisType == "%")
+        {
+            basisInputDisplay = "d-block";
+            basisValue = enteredValue;
+            basisType = selectedBasisType;
+            updateStyling("flex-basis", enteredValue + selectedBasisType);
+        }
+        else if (selectedBasisType == "initial" || selectedBasisType == "auto" || selectedBasisType == "none")
+        {
+            basisInputDisplay = "d-none";
+            updateStyling("flex-basis", selectedBasisType);
+        }
+        else
+        {
+            updateStyling("flex-basis", enteredValue + "px");
+        }
+    }
 
     private Task updateStyling(string input, string option)
     {
