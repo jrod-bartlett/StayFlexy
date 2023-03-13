@@ -44,6 +44,7 @@
 .userInputs {
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .addRemoveBtns {
@@ -67,5 +68,5 @@
 }
 
 #childrenControllers {
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 }
