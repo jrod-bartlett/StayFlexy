@@ -13,6 +13,18 @@
     padding: 0.25em 0.5em;
 }
 
+    .controlItem > h5 {
+        display: inline-block;
+    }
+
+    .controlItem > svg {
+        margin-bottom: 1em;
+    }
+
+    .controlItem > svg:hover {
+        cursor: pointer;                     
+    }
+
     .controlItem > div > div {
         margin-left: 1em;
     }
