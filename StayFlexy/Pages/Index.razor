@@ -1,25 +1,25 @@
 ﻿@page "/"
 @page "/StayFlexy"
 
-<PageTitle>Display: Flexbox</PageTitle>
+<PageTitle>Stay Flexy</PageTitle>
 
 <div id="flexboxDemo">
     <div class="section elementsContainer">
-        <small>Flexbox Parent</small>
-        <div class="flexboxParent" style="@parentStyling">
+        <h3>Parent Element</h3>
+        <div class="flexboxParent" style=" @parentStyling">
             @for (int child = 1; child <= childrenStyling.Count; child++)
             {
                 int temp = child;
-                <div class="flexboxChild" id="@temp" style="@childrenStyling[temp]">
-                    <p>flex element @temp</p>
+                <div class="flexboxChild d-flex align-items-center" id="@temp" style="@childrenStyling[temp]">
+                    <p>child element @temp</p>
                 </div>
             }
         </div>
     </div>
     <div class="section userInputs">
         <div class="addRemoveBtns">            
-            <button class="addBtn" @onclick="addChildElement">Add New Child</button>
-            <button class="removeBtn" @onclick="removeChildElement">Remove Element</button>
+            <button class="btn btn-success" @onclick="addChildElement">Add New Child</button>
+            <button class="btn btn-danger" @onclick="removeChildElement">Remove Child</button>
         </div>
         <ParentController SideBarFocus="(val) => { inforbarFocus = val; infobar.show(); StateHasChanged();}" @bind-Styling="@parentStyling"></ParentController>
         <div id="childrenControllers">
@@ -28,6 +28,10 @@
                 int temp = i;
                 <ChildController @key="temp" SideBarFocus="(val) => { inforbarFocus = val; infobar.show(); StateHasChanged();}" StylingChanged="(val) => {updateChildStyling(val);}" Styling="@childrenStyling[temp]" ID="temp"></ChildController>
             }
+        </div>
+        <div class="addRemoveBtns">
+            <button class="btn btn-success" @onclick="addChildElement">Add New Child</button>
+            <button class="btn btn-danger" @onclick="removeChildElement">Remove Child</button>
         </div>
     </div>
 </div>
@@ -38,7 +42,7 @@
     private string parentStyling = "";
     private Dictionary<int, string> childrenStyling = new Dictionary<int, string>
     {
-        { 1, "" }
+        { 1, "height:80px;\n" }
     };
     
 
@@ -47,7 +51,7 @@
 
     private void addChildElement()
     {
-        childrenStyling.Add(childrenStyling.Count + 1, "");
+        childrenStyling.Add(childrenStyling.Count + 1, "height:80px;\n");
     }
 
     private void removeChildElement()

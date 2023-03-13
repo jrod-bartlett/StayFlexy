@@ -1,13 +1,15 @@
 ﻿<div id="parentController">
     <div class="controlItem">
-        <small style="float: right; font-weight: bold;">Parent Element</small>
-        <h5>
-            flex-direction
+        <h5><b>Parent Element</b></h5>
+        <br />
+        <hr />
+        <h6>
+            <b>flex-direction</b>
             <svg @onclick='() => showInfo("parent-flex-direction")' xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                 <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
             </svg>
-        </h5>
+        </h6>
         <div style="display: flex; flex-wrap: wrap;">
             <div stlye="margin-left: 1em;">
                 <input checked type="radio" id="row-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "row")'>
@@ -26,7 +28,9 @@
                 <label for="column-reverse-flex-direction">column-reverse</label>
             </div>
         </div>
-        <h5>flex-wrap</h5>
+        <hr />
+
+        <h6><b>flex-wrap</b></h6>
         <div style="display: flex; flex-wrap: wrap;">
             <div stlye="margin-left: 1em;">
                 <input checked type="radio" id="nowrap-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "nowrap")'>
@@ -40,10 +44,15 @@
                 <input type="radio" id="wrap-reverse-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "wrap-reverse")'>
                 <label for="wrap-reverse-flex-wrap">wrap-reverse</label>
             </div>
+
         </div>
-        <h5>flex-basis</h5>
-        <h5>flex-flow (flex-basis flex-wrap)</h5>
-        <h5>align-items</h5>
+        <aside stlye="padding-left: 1em;">Hint: add more children than the container can hold</aside>
+        <hr />
+
+        <h6><b>flex-basis</b></h6>
+        @*<h5>flex-flow (flex-basis flex-wrap)</h5>*@
+        <hr />
+        <h6><b>align-items</b></h6>
         <div style="display: flex; flex-wrap: wrap;">
             <div stlye="margin-left: 1em;">
                 <input checked type="radio" id="stretch-align-items" name="align-items" @onclick='() => updateStyling("align-items", "stretch")'>
@@ -65,8 +74,12 @@
                 <input type="radio" id="flex-end-align-items" name="align-items" @onclick='() => updateStyling("align-items", "flex-end")'>
                 <label for="flex-end-align-items">flex-end</label>
             </div>
+            
         </div>
-        <h5>align-content</h5>
+        <aside stlye="padding-left: 1em;">If flex-direction = row; Set some, but not all child elements to "auto" to see this in action</aside>
+
+        <hr />
+        <h6><b>align-content</b></h6>
         <div style="display: flex; flex-wrap: wrap;">
             <div stlye="margin-left: 1em;">
                 <input type="radio" id="stretch-align-content" name="align-content" @onclick='() => updateStyling("align-content", "stretch")'>
@@ -96,8 +109,11 @@
                 <input type="radio" id="flex-end-align-content" name="align-content" @onclick='() => updateStyling("align-content", "flex-end")'>
                 <label for="flex-end-align-content">flex-end</label>
             </div>
+            
         </div>
-        <h5>justify-content</h5>
+
+        <hr />
+        <h6><b>justify-content</b></h6>
         <div style="display: flex; flex-wrap: wrap;">
             <div stlye="margin-left: 1em;">
                 <input type="radio" id="center-justify-content" name="justify-content" @onclick='() => updateStyling("justify-content", "center")'>
@@ -124,9 +140,20 @@
                 <label for="flex-end-justify-content">flex-end</label>
             </div>
         </div>
-        <h5>column-gap</h5>
+        @*<h5>column-gap</h5>
         <h5>row-gap</h5>
-        <h5>gap (row-gap column-gap)</h5>
+        <h5>gap (row-gap column-gap)</h5>*@
+        <br />
+        <hr />
+        <div style="padding-left:15px;">
+            <h5 style="margin-left:-15px;">CSS Preview for parent element:</h5>
+            <code>
+                <span style="margin-left:-15px;">.Parent-Element {</span>
+                <br />
+                @((MarkupString)Styling.Replace("\n", "   <br>"))
+                <span style="margin-left:-15px;">}</span>
+            </code>
+        </div>
     </div>
 </div>
 
@@ -151,26 +178,26 @@
     private Task updateStyling(string input, string option)
     {
         bool addedStyle = false;
-        string[] styles = Styling.Split(";");
+        string[] styles = Styling.Split(";\n");
         Styling = "";
         foreach (string style in styles)
         {
             if (style.Contains(input))
             {
-                Styling += input + ":" + option + ";";
+                Styling += input + ":" + option + ";\n";
                 addedStyle = true;
             }
             else
             {
                 if (!style.Equals(""))
                 {
-                    Styling += style + ";";
+                    Styling += style + ";\n";
                 }
             }
         }
         if (addedStyle == false)
         {
-            Styling += input + ":" + option + ";";
+            Styling += input + ":" + option + ";\n";
         }
 
         return StylingChanged.InvokeAsync(Styling);
