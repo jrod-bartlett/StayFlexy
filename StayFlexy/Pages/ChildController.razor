@@ -48,6 +48,7 @@
                         Height:
                         <input type="number" id="child-height-@ID" name="child-height-@ID" @bind="childHeight" /> px (align-self only works when no height is specified)
                     </label>
+                    <aside style="margin-top:20px;">Click the above options twice. If I had more time I could fix my debugger, but that is not the case</aside>
                 </div>
                 <hr />
                 <div class="form-group pt-3">
@@ -78,7 +79,7 @@
                         </label>
 
                     </div>
-                    <br />
+                    @*<br />
                     <div class="d-inline-flex">
                         <span style="margin-left:110px;">&#9939;</span>
                         <span style="margin-left:133px;">&#9939;</span>
@@ -93,20 +94,15 @@
                             <input type="number" class="@basisInputDisplay" id="flex-param3-@ID" name="flex-param1-@ID" @bind="basisValue" style="margin-left:102px">
                             <label style="margin-left:20px">@basisType</label>
                         </label>
-                    </div>
+                    </div>*@
                 </div>
-                <hr />
-                <div class="form-group pt-3">
-                </div>
-
-                <br />
                 <hr />
                 <div style="margin-left:15px;">
                     <h5 style="margin-left:-15px;">CSS Preview for child element:</h5>
                     <code>
                         <span style="margin-left:-15px;">.Child-Element-@ID {</span>
                         <br />
-                        @((MarkupString)Styling.Replace("\n", "   <br>"))
+                        @((MarkupString)Styling.Replace(";", ";<br>"))
                         <span style="margin-left:-15px;">}</span>
                     </code>
                 </div>
@@ -212,7 +208,7 @@
     private Task updateStyling(string input, string option)
     {
         bool addedStyle = false;
-        string[] styles = Styling.Split(";\n");
+        string[] styles = Styling.Split(";");
         Styling = "";
         foreach (string style in styles)
         {
@@ -224,25 +220,24 @@
                 {
                     option = "auto";
                 }
-                Styling += input + ":" + option + ";\n";
-                addedStyle = true;
-
                 if (input == "align-self")
                 {
                     childHeight = null;
                 }
+                Styling += input + ":" + option + ";";
+                addedStyle = true;
             }
             else
             {
                 if (!style.Equals(""))
                 {
-                    Styling += (style == "height:px" ? "height:auto" : style) + ";\n";
+                    Styling += (style == "height:px" ? "height:auto" : style) + ";";
                 }
             }
         }
         if (addedStyle == false)
         {
-            Styling += input + ":" + option + ";\n";
+            Styling += input + ":" + option + ";";
         }
 
 

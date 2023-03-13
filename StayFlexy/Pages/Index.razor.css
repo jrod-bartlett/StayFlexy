@@ -17,7 +17,6 @@
 }
 
 .flexboxParent {
-    height: fit-content;
     display: flex;
 }
 

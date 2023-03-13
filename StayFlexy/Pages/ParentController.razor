@@ -47,10 +47,10 @@
 
         </div>
         <aside stlye="padding-left: 1em;">Hint: add more children than the container can hold</aside>
-        <hr />
+        @*<hr />
 
         <h6><b>flex-basis</b></h6>
-        @*<h5>flex-flow (flex-basis flex-wrap)</h5>*@
+        <h5>flex-flow (flex-basis flex-wrap)</h5>*@
         <hr />
         <h6><b>align-items</b></h6>
         <div style="display: flex; flex-wrap: wrap;">
@@ -82,31 +82,31 @@
         <h6><b>align-content</b></h6>
         <div style="display: flex; flex-wrap: wrap;">
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="stretch-align-content" name="align-content" @onclick='() => updateStyling("align-content", "stretch")'>
+                <input type="radio" id="stretch-align-content" name="align-content" @onclick='() => {updateStyling("align-content", "stretch");updateStyling("height", "90%");}'>
                 <label for="stretch-align-content">stretch</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="center-align-content" name="align-content" @onclick='() => updateStyling("align-content", "center")'>
+                <input type="radio" id="center-align-content" name="align-content" @onclick='() => {updateStyling("align-content", "center");updateStyling("height", "90%");}'>
                 <label for="center-align-content">center</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="space-between-align-content" name="align-content" @onclick='() => updateStyling("align-content", "space-between")'>
+                <input type="radio" id="space-between-align-content" name="align-content" @onclick='() => {updateStyling("align-content", "space-between");updateStyling("height", "90%");}'>
                 <label for="space-between-align-content">space-between</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="space-around-align-content" name="align-content" @onclick='() => updateStyling("align-content", "space-around")'>
+                <input type="radio" id="space-around-align-content" name="align-content" @onclick='() => {updateStyling("align-content", "space-around");updateStyling("height", "90%");}'>
                 <label for="space-around-align-content">space-around</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="space-evenly-align-content" name="align-content" @onclick='() => updateStyling("align-content", "space-evenly")'>
+                <input type="radio" id="space-evenly-align-content" name="align-content" @onclick='() => {updateStyling("align-content", "space-evenly");updateStyling("height", "90%");}'>
                 <label for="space-evenly-align-content">space-evenly</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="flex-start-align-content" name="align-content" @onclick='() => updateStyling("align-content", "flex-start")'>
+                <input type="radio" id="flex-start-align-content" name="align-content" @onclick='() => {updateStyling("align-content", "flex-start");updateStyling("height", "90%");}'>
                 <label for="flex-start-align-content">flex-start</label>
             </div>
             <div stlye="margin-left: 1em;">
-                <input type="radio" id="flex-end-align-content" name="align-content" @onclick='() => updateStyling("align-content", "flex-end")'>
+                <input type="radio" id="flex-end-align-content" name="align-content" @onclick='() => {updateStyling("align-content", "flex-end");updateStyling("height", "90%");}'>
                 <label for="flex-end-align-content">flex-end</label>
             </div>
             
@@ -142,15 +142,15 @@
         </div>
         @*<h5>column-gap</h5>
         <h5>row-gap</h5>
-        <h5>gap (row-gap column-gap)</h5>*@
-        <br />
+        <h5>gap (row-gap column-gap)</h5>
+        <br />*@
         <hr />
         <div style="padding-left:15px;">
             <h5 style="margin-left:-15px;">CSS Preview for parent element:</h5>
             <code>
                 <span style="margin-left:-15px;">.Parent-Element {</span>
                 <br />
-                @((MarkupString)Styling.Replace("\n", "   <br>"))
+                @((MarkupString)Styling.Replace(";", ";<br>"))
                 <span style="margin-left:-15px;">}</span>
             </code>
         </div>
@@ -178,26 +178,26 @@
     private Task updateStyling(string input, string option)
     {
         bool addedStyle = false;
-        string[] styles = Styling.Split(";\n");
+        string[] styles = Styling.Split(";");
         Styling = "";
         foreach (string style in styles)
         {
             if (style.Contains(input))
             {
-                Styling += input + ":" + option + ";\n";
+                Styling += input + ":" + option + ";";
                 addedStyle = true;
             }
             else
             {
                 if (!style.Equals(""))
                 {
-                    Styling += style + ";\n";
+                    Styling += style + ";";
                 }
             }
         }
         if (addedStyle == false)
         {
-            Styling += input + ":" + option + ";\n";
+            Styling += input + ":" + option + ";";
         }
 
         return StylingChanged.InvokeAsync(Styling);
