@@ -1,0 +1,168 @@
+﻿<div id="parentController">
+    <div class="controlItem">
+        <small style="float: right; font-weight: bold;">Parent Element</small>
+        <h5>flex-direction</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input checked type="radio" id="row-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "row")'>
+                <label for="row-flex-direction">row</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="row-reverse-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "row-reverse")'>
+                <label for="row-reverse-flex-direction">row-reverse</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="column-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "column")'>
+                <label for="column-flex-direction">column</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="column-reverse-flex-direction" name="flex-direction" @onclick='() => updateStyling("flex-direction", "column-reverse")'>
+                <label for="column-reverse-flex-direction">column-reverse</label>
+            </div>
+        </div>
+        <h5>flex-wrap</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input checked type="radio" id="nowrap-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "nowrap")'>
+                <label for="nowrap-flex-wrap">nowrap</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="wrap-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "wrap")'>
+                <label for="wrap-flex-wrap">wrap</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="wrap-reverse-flex-wrap" name="flex-wrap" @onclick='() => updateStyling("flex-wrap", "wrap-reverse")'>
+                <label for="wrap-reverse-flex-wrap">wrap-reverse</label>
+            </div>
+        </div>
+        <h5>flex-basis</h5>
+        <h5>flex-flow (flex-basis flex-wrap)</h5>
+        <h5>align-items</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input checked type="radio" id="stretch-align-items" name="align-items" @onclick='() => updateStyling("align-items", "stretch")'>
+                <label for="stretch-align-items">stretch</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="center-align-items" name="align-items" @onclick='() => updateStyling("align-items", "center")'>
+                <label for="center-align-items">center</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="baseline-align-items" name="align-items" @onclick='() => updateStyling("align-items", "baseline")'>
+                <label for="baseline-align-items">baseline</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-start-align-items" name="align-items" @onclick='() => updateStyling("align-items", "flex-start")'>
+                <label for="flex-start-align-items">flex-start</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-end-align-items" name="align-items" @onclick='() => updateStyling("align-items", "flex-end")'>
+                <label for="flex-end-align-items">flex-end</label>
+            </div>
+        </div>
+        <h5>align-content</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="stretch-align-content" name="align-content" @onclick='() => updateStyling("align-content", "stretch")'>
+                <label for="stretch-align-content">stretch</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="center-align-content" name="align-content" @onclick='() => updateStyling("align-content", "center")'>
+                <label for="center-align-content">center</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="space-between-align-content" name="align-content" @onclick='() => updateStyling("align-content", "space-between")'>
+                <label for="space-between-align-content">space-between</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="space-around-align-content" name="align-content" @onclick='() => updateStyling("align-content", "space-around")'>
+                <label for="space-around-align-content">space-around</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="space-evenly-align-content" name="align-content" @onclick='() => updateStyling("align-content", "space-evenly")'>
+                <label for="space-evenly-align-content">space-evenly</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-start-align-content" name="align-content" @onclick='() => updateStyling("align-content", "flex-start")'>
+                <label for="flex-start-align-content">flex-start</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-end-align-content" name="align-content" @onclick='() => updateStyling("align-content", "flex-end")'>
+                <label for="flex-end-align-content">flex-end</label>
+            </div>
+        </div>
+        <h5>justify-content</h5>
+        <div style="display: flex; flex-wrap: wrap;">
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="center-justify-content" name="justify-content" @onclick='() => updateStyling("justify-content", "center")'>
+                <label for="center-justify-content">center</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="space-between-justify-content" name="justify-content" @onclick='() => updateStyling("justify-content", "space-between")'>
+                <label for="space-between-justify-content">space-between</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="space-around-justify-content" name="justify-content" @onclick='() => updateStyling("justify-content", "space-around")'>
+                <label for="space-around-justify-content">space-around</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="space-evenly-justify-content" name="justify-content" @onclick='() => updateStyling("justify-content", "space-evenly")'>
+                <label for="space-evenly-justify-content">space-evenly</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-start-justify-content" name="justify-content" @onclick='() => updateStyling("justify-content", "flex-start")'>
+                <label for="flex-start-justify-content">flex-start</label>
+            </div>
+            <div stlye="margin-left: 1em;">
+                <input type="radio" id="flex-end-justify-content" name="justify-content" @onclick='() => updateStyling("justify-content", "flex-end")'>
+                <label for="flex-end-justify-content">flex-end</label>
+            </div>
+        </div>
+        <h5>column-gap</h5>
+        <h5>row-gap</h5>
+        <h5>gap (row-gap column-gap)</h5>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public string Styling { get; set; }
+    [Parameter]
+    public EventCallback<string> StylingChanged { get; set; }
+
+    //private Dictionary<string, List<string>> flexboxParent = new Dictionary<string, List<string>>
+    //{
+    //    { "flex-direction", new List<string> {"row", "row-reverse", "column", "column-reverse"} },
+    //    { "flex-wrap", new List<string> { "nowrap", "wrap", "wrap-reverse"} },
+    //    { "justify-content", new List<string> { "flex-start", "flex-end", "start", "end", "left", "right", "center", "space-between", "space-around", "space-evenly"} }
+    //};
+
+    
+
+    private Task updateStyling(string input, string option)
+    {
+        bool addedStyle = false;
+        string[] styles = Styling.Split(";");
+        Styling = "";
+        foreach (string style in styles)
+        {
+            if (style.Contains(input))
+            {
+                Styling += input + ":" + option + ";";
+                addedStyle = true;
+            }
+            else
+            {
+                if (!style.Equals(""))
+                {
+                    Styling += style + ";";
+                }
+            }
+        }
+        if (addedStyle == false)
+        {
+            Styling += input + ":" + option + ";";
+        }
+
+        return StylingChanged.InvokeAsync(Styling);
+    }
+}

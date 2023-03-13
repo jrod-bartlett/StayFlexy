@@ -1,0 +1,83 @@
+﻿<div class="childController">
+    <div class="controlItem">
+        <h5><b>Element @ID</b></h5>
+        <hr />
+        <h6><b>align-self</b></h6>
+        <div style="display: flex; flex-wrap: wrap;">
+            <form>
+                <div class="form-group">
+                    <input type="radio" id="auto-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "auto")'>
+                    <label for="auto-align-self-@ID">auto</label>
+
+                    <input type="radio" id="flex-start-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "flex-start")'>
+                    <label for="flex-start-align-self-@ID">flex-start</label>
+
+                    <input type="radio" id="flex-end-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "flex-end")'>
+                    <label for="flex-end-align-self-@ID">flex-end</label>
+
+                    <input type="radio" id="center-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "center")'>
+                    <label for="center-align-self-@ID">center</label>
+
+                    <input type="radio" id="baseline-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "baseline")'>
+                    <label for="baseline-align-self-@ID">baseline</label>
+
+                    <input type="radio" id="stretch-align-self-@ID" name="align-self-@ID" @onclick='() => updateStyling("align-self", "stretch")'>
+                    <label for="stretch-align-self-@ID">stretch</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="order-@ID" style="display: inline-block;">order</label>
+                    <input type="number" id="order-@ID" name="order-@ID" @onchange='e => updateStyling("order", e.Value.ToString())'>
+
+                    <label for="flex-grow-@ID" style="display: inline-block; margin-left: 1em;">flex-grow</label>
+                    <input type="number" id="flex-grow-@ID" name="flex-grow-@ID" @onchange='e => updateStyling("flex-grow", e.Value.ToString())'>
+
+                    <label for="flex-shrink-@ID" style="display: inline-block; margin-left: 1em;">flex-shrink</label>
+                    <input type="number" id="flex-shrink-@ID" name="flex-shrink-@ID" @onchange='e => updateStyling("flex-shrink", e.Value.ToString())'>
+                </div>
+
+            </form>
+
+            <hr />
+        </div>
+
+    </div>
+</div>
+@code {
+    [Parameter]
+    public int ID { get; set; }
+    [Parameter]
+    public string Styling { get; set; }
+    [Parameter]
+    public EventCallback<KeyValuePair<int, string>> StylingChanged { get; set; }
+
+    private Task updateStyling(string input, string option)
+    {
+        bool addedStyle = false;
+        string[] styles = Styling.Split(";");
+        Styling = "";
+        foreach (string style in styles)
+        {
+            if (style.Contains(input))
+            {
+                Styling += input + ":" + option + ";";
+                addedStyle = true;
+            }
+            else
+            {
+                if (!style.Equals(""))
+                {
+                    Styling += style + ";";
+                }
+            }
+        }
+        if (addedStyle == false)
+        {
+            Styling += input + ":" + option + ";";
+        }
+
+
+        KeyValuePair<int, string> kvp = new KeyValuePair<int, string>(ID, Styling);
+        return StylingChanged.InvokeAsync(kvp);
+    }
+}
